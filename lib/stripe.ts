@@ -1,14 +1,16 @@
 import Stripe from 'stripe';
 
-const secretKey = process.env.STRIPE_SECRET_KEY;
+export const stripe = () => {
+  const secretKey = process.env.STRIPE_SECRET_KEY;
 
-if (!secretKey) {
-  throw new Error('STRIPE_SECRET_KEY environment variable is not set');
-}
+  if (!secretKey) {
+    throw new Error('STRIPE_SECRET_KEY environment variable is not set');
+  }
 
-export const stripe = () => new Stripe(secretKey, {
-  apiVersion: '2025-02-24.acacia',
-});
+  return new Stripe(secretKey, {
+    apiVersion: '2025-02-24.acacia',
+  });
+};
 
 export const verifyWebhook = (body: string, signature: string) => {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
