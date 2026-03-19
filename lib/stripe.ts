@@ -1,6 +1,5 @@
 import Stripe from 'stripe';
 
-const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
 const secretKey = process.env.STRIPE_SECRET_KEY;
 
 if (!secretKey) {
@@ -14,12 +13,12 @@ export const stripe = () => new Stripe(secretKey, {
 export const verifyWebhook = (body: string, signature: string) => {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    throw new Error('STRIPE_WEBHOOK_SECRET environment variable is not set');
+    throw new Error('STRIPE_WEBHOOK_SECRET not set');
   }
 
   try {
     return stripe().webhooks.constructEvent(body, signature, webhookSecret);
   } catch (error: any) {
-    throw new Error(`Webhook signature verification failed: ${error.message}`);
+    throw new Error(`Webhook verification failed: ${error.message}`);
   }
 };

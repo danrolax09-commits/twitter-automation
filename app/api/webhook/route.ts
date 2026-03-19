@@ -7,10 +7,7 @@ export async function POST(request: NextRequest) {
     const body = await request.text();
 
     if (!signature) {
-      return NextResponse.json(
-        { error: 'Missing signature' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
     }
 
     const event: any = verifyWebhook(body, signature);
@@ -29,9 +26,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
   } catch (error: any) {
     console.error('Webhook error:', error);
-    return NextResponse.json(
-      { error: error.message || 'Webhook processing failed' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

@@ -3,14 +3,10 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'twitter-automation',
-  description: 'Revenue-generating SaaS product',
+  description: 'Social media automation and analytics',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>{children}</body>
